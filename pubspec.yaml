@@ -6,13 +6,13 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  camera: any
+  camera: ^0.5.7
   cupertino_icons: ^0.1.2
   flutter:
     sdk: flutter
-  image: any
-  path_provider: any
-  tflite: any
+  image: ^2.1.4
+  path_provider: ^1.6.7
+  tflite: ^1.0.5
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"
