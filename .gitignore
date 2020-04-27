@@ -69,3 +69,17 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+
+#PR Exclude
+**/android/*
+**/assets/*
+**/images/*
+**/ios/*
+**/notebooks/*
+**/.metadata
+**/LICENSE
+**/pubspec.lock
+**/README.md
+**/lib/camera.dart
+**/lib/main.dart

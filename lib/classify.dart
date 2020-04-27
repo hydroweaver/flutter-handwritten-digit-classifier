@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'dart:io' as io;
 
 import 'package:flutter/services.dart';
 
@@ -12,7 +13,9 @@ final int imgSize = 28;
 class MnistClassifier {
 
   // Model files
-  static final String modelFilename = "assets/model/mnist.tflite";
+  //static final String modelFilename = "assets/model/mnist.tflite";
+  //Adding smaller model using convnets : https://github.com/hydroweaver/deep-learning/blob/master/digits_mnist_trial_with_convnets.py
+  static final String modelFilename = "assets/model/smaller_mnist.tflite";
   static final String modelLabels = "assets/model/labels.txt";
 
   // Model inputs
@@ -54,9 +57,12 @@ Future<MnistClassifierResult> classifyImage(String imgFile) async {
     labels: MnistClassifier.modelLabels,
   );
 
-  var imageBytes = (await rootBundle.load(imgFile)).buffer;
+  //rootBundle only accepts file from asset bundle, somehow doesnt work anymore
+  //var imageBytes = (await rootBundle.load(imgFile)).buffer;
+  //Using Dart IO Module to get Image Bytes
+  var imageBytes = io.File(imgFile).readAsBytesSync().buffer;
   Image oriImage = decodeJpg(imageBytes.asUint8List());
-  Image resizedImage = copyResize(oriImage, MnistClassifier.imgWidth, MnistClassifier.imgHeight);
+  Image resizedImage = copyResize(oriImage, width: MnistClassifier.imgWidth, height: MnistClassifier.imgHeight);
 
   List recognitions = await Tflite.runModelOnBinary(
     binary: imageToByteListFloat32(resizedImage, MnistClassifier.imgWidth, MnistClassifier.imgHeight),
